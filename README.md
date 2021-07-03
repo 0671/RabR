@@ -4,7 +4,7 @@ Redis-Attack By Replication (通过主从复制攻击Redis)
 
 - 攻击Linux下的Redis，可执行命令和反弹shell
 - 攻击Window x64下的Redis，可...执行calc
-本工具基于**Ridter**师傅的**[redis-rce](https://github.com/Ridter/redis-rce)** 进行修改。  
+本工具基于**Ridter**师傅的[**redis-rce**](https://github.com/Ridter/redis-rce) 进行修改。  
 
 ## 原理
 Redis从2.8开始，就支持主从复制功能。     
