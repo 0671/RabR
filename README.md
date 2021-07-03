@@ -3,7 +3,7 @@
 Redis-Attack By Replication (通过主从复制攻击Redis)   
 
 - 攻击Linux下的Redis，可执行命令和反弹shell
-- 攻击Window x64下的Redis，可...执行calc
+- 攻击Window x64下的Redis，可...执行calc  
 本工具基于**Ridter**师傅的[**redis-rce**](https://github.com/Ridter/redis-rce) 进行修改。  
 
 ## 原理
@@ -19,6 +19,16 @@ Redis从2.8开始，就支持主从复制功能。
 - 本工具默认使用的恶意dll：dbghelp.dll，是通过 [**DLLHijacker** ](https://github.com/kiwings/DLLHijacker )+ **win7x64下的dbghelp.dll** 编译生成的，该dll会执行calc，你可以编译自己的dbghelp.dll。
 - 本工具有爆破功能，密码字典位于pwd.txt中。  
 - 本工具在攻击前会备份目标Redis的数据，在攻击结束后会进行恢复，使用的工具为[**redis-dump-go**](https://github.com/yannh/redis-dump-go )。默认是开启的，可以关闭。  
+
+## 结构
+```  
+│  dbghelp.dll 默认用于劫持Redis的dll
+│  exp.so 默认导入的Redis模块
+│  pwd.txt 爆破字典
+│  rd.exe 用于保存Redis数据的程序
+│  README.md
+│  redis-attack.py 攻击主程序
+```
 
 ## 用法
 ```
