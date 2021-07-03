@@ -66,14 +66,14 @@ optional arguments:
 
 
 ## 感谢
-本工具基于大量优秀文章和工具才得以编写完成，非常感谢这些无私的分享者！！非常感谢某群大佬分享的关键词(很重要)！！非常感谢！！
-帮助到我的文章与工具包括但不限于：
- [Redis on Windows 出网利用探索](https://xz.aliyun.com/t/8153)
- [Redis On Windows -- Dll Hijack](https://jkme.github.io/redis-on-windows-dll-hijack.html)
- [DLLHijacker](https://github.com/kiwings/DLLHijacker)
- [redis-rce](https://github.com/Ridter/redis-rce)
- [RedisWriteFile](https://github.com/r35tart/RedisWriteFile)
- [redis-dump-go](https://github.com/yannh/redis-dump-go)
+本工具基于大量优秀文章和工具才得以编写完成，非常感谢这些无私的分享者！！非常感谢某群大佬分享的关键词(很重要)！！非常感谢！！  
+帮助到我的文章与工具包括但不限于：  
+ [Redis on Windows 出网利用探索](https://xz.aliyun.com/t/8153)  
+ [Redis On Windows -- Dll Hijack](https://jkme.github.io/redis-on-windows-dll-hijack.html)  
+ [DLLHijacker](https://github.com/kiwings/DLLHijacker)  
+ [redis-rce](https://github.com/Ridter/redis-rce)  
+ [RedisWriteFile](https://github.com/r35tart/RedisWriteFile)  
+ [redis-dump-go](https://github.com/yannh/redis-dump-go)  
 
 反馈
 ---
