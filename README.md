@@ -6,6 +6,9 @@ Redis-Attack By Replication (通过主从复制攻击Redis)
 - 攻击Window x64下的Redis，可...执行calc  
 本工具基于**Ridter**师傅的[**redis-rce**](https://github.com/Ridter/redis-rce) 进行修改。  
 
+## 声明
+本工具仅用于个人安全研究学习。由于传播、利用本工具而造成的任何直接或者间接的后果及损失，均由使用者本人负责，工具作者不为此承担任何责任。
+
 ## 原理
 Redis从2.8开始，就支持主从复制功能。     
 
