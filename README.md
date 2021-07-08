@@ -64,18 +64,13 @@ optional arguments:
 ```
 
 ![image-20210708212712502](phpto/image-20210708212712502.png)
-
 ![image-20210708190457889](phpto/image-20210708190457889.png)
-
 ![image-20210708213302932](phpto/image-20210708213302932.png)
 
-## 进一步
-
+## 进一步  
 劫持Windows x64下的dbghelp.dll的具体方法：  
-
 1）[DLLHijacker](https://github.com/kiwings/DLLHijacker) +目标Redis的系统版本的dbghelp.dll， 生成vs项目。  
 2）vs项目修改：   
-
 ```
 1、将dllmain.cpp中 shellcode_calc[] 的值替换为cs生成的shellcode 
 2、为了避免只能劫持1次dll，在dllmain.cpp的 Hijack();后增加 FreeLibrary(hModule);
@@ -85,12 +80,14 @@ optional arguments:
 3）编译生成恶意dbghelp.dll，复制到本工具目录下。    
 4）使用本工具执行攻击 。  
 
-## 时间线
-    2021.07.03 发布v0.5
-    2021.07.08 发布v0.6,增加了Windows模块攻击
+## 时间线  
+```  
+2021.07.03 发布v0.5
+2021.07.08 发布v0.6,增加了Windows模块攻击
+```
 
 
-## 感谢
+## 感谢  
 本工具基于大量优秀文章和工具才得以编写完成，非常感谢这些无私的分享者！！非常感谢某群大佬分享的关键词(很重要)！！非常感谢！！  
 帮助到我的文章与工具包括但不限于：  
  [Redis on Windows 出网利用探索](https://xz.aliyun.com/t/8153)  
