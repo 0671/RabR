@@ -14,11 +14,11 @@ Redis-Attack By Replication (通过主从复制攻击Redis)
 Redis从2.8开始，就支持主从复制功能。     
 
 这个功能存在脆弱的地方：主从复制中，Redis从机会将Redis主机的数据库文件同步到本地的数据库文件，并检验其是否为RDP格式，但如果不是RDP格式也不会删除。   
-所以我们只要将主从复制传输中的数据库文件，替换为我们自己的数据，就可以将我们自己的数据原封不动的写入到redis从机的数据库文件中，而这个数据库文件的名字也可以通过Redis从机进行修改。  
+所以我们只要将主从复制传输中的数据库文件，替换为我们自己的数据，就可以将我们自己的数据原封不动的写入到Redis从机的数据库文件中，而这个数据库文件的名字也可以通过Redis从机进行修改。  
 **这就意味着我们可以将任意文件写入到目标Redis权限下的任意路径**。    
 
 ## 特点
-- 本工具利用这个Redis的脆弱性，对Linux下的redis进行module攻击，对Windows下的Redis进行module攻击和dll劫持攻击。  
+- 本工具利用这个Redis的脆弱性，对Linux下的Redis进行module攻击，对Windows下的Redis进行module攻击和dll劫持攻击。  
 - 本工具默认使用的Linux恶意模块：exp.so，源码来自于：[**RedisModules-ExecuteCommand** ](https://github.com/puckiestyle/RedisModules-ExecuteCommand ), 该模块实现了执行单条命令和反弹shell的功能，你也可以编写自己的模块。  
 - 本工具默认使用的Windows恶意模块：exp.dll，源码来自于：[**RedisModules-ExecuteCommand-for-Windows** ](https://github.com/0671/RedisModules-ExecuteCommand-for-Windows ), 该模块实现了执行命令的功能，你也可以编写自己的模块。  
 - 本工具默认使用的用于劫持的恶意dll：dbghelp.dll，是通过 [**DLLHijacker** ](https://github.com/kiwings/DLLHijacker )+ **Winx64下的dbghelp.dll**编译生成的，该dll会执行calc，你可以编译自己的dbghelp.dll。
@@ -73,7 +73,7 @@ optional arguments:
 1）[DLLHijacker](https://github.com/kiwings/DLLHijacker) +目标Redis的系统版本的dbghelp.dll， 生成vs项目。  
 2）vs项目修改：   
 ```
-1、将dllmain.cpp中 shellcode_calc[] 的值替换为cs生成的shellcode 
+1、将dllmain.c中 shellcode_calc[] 的值替换为cs生成的shellcode 
 2、为了避免只能劫持1次dll，在dllmain.cpp的 Hijack();后增加 FreeLibrary(hModule);
 3、修改活动解决方案为Realease，x64
 4、修改项目属性的sdk版本、平台工具集为本地vs可用的值
