@@ -31,7 +31,6 @@ Redis从2.8开始，就支持主从复制功能。
 │  exp.dll 默认导入的Windows Redis模块
 │  exp.so 默认导入的Linux Redis模块
 │  pwd.txt 爆破字典
-│  rd.exe 用于保存Redis数据的程序
 │  README.md
 │  redis-attack.py 攻击主程序
 │  util 有用的程序（用于保存Redis数据）  
