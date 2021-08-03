@@ -101,7 +101,7 @@ optional arguments:
 ```  
 2021.07.03 发布v0.5  
 2021.07.08 发布v0.6,增加了Windows模块攻击  
-2021.07.08 发布v0.6.3,增加了针对Linux的crontab写入攻击、ssh公钥写入攻击  
+2021.08.02 发布v0.6.3,增加了针对Linux的crontab写入攻击、ssh公钥写入攻击  
 ```
 
 
