@@ -23,7 +23,7 @@ Redis从2.8开始，就支持主从复制功能。
 - 本工具默认使用的crontab文件：exp/linux/exp.crontab，使用前务必根据自己实际的需求进行修改，或者直接通过命令行设置自己的crontab文件。  
 - 本工具默认使用的ssh公钥文件：exp/linux/exp.authorized_keys，使用前务必自己重新生成以替换，或者直接通过命令行设置自己的ssh公钥文件。  
 - 本工具默认使用的Windows恶意模块：exp/win/exp.dll，源码来自于：[**RedisModules-ExecuteCommand-for-Windows** ](https://github.com/0671/RedisModules-ExecuteCommand-for-Windows ), 该模块实现了执行命令的功能，你也可以编写自己的模块。  
-- 本工具默认使用的用于劫持的恶意dll：exp/win/exp.dll，是通过 [**DLLHijacker** ](https://github.com/kiwings/DLLHijacker )+ **Winx64下的dbghelp.dll**编译生成的，该dll会执行calc，你也可以编译自己的dbghelp.dll。  
+- 本工具默认使用的用于劫持的恶意dll：exp/win/dbghelp.dll，是通过 [**DLLHijacker** ](https://github.com/kiwings/DLLHijacker )+ **Winx64下的dbghelp.dll**编译生成的，该dll会执行calc，你也可以编译自己的dbghelp.dll。  
 - 本工具有爆破功能，默认密码字典位于pwd.txt中，也可自定义字典文件。  
 - 本工具在攻击前会备份目标Redis的数据，在攻击结束后会进行恢复，使用的工具为[**redis-dump-go**](https://github.com/yannh/redis-dump-go )。默认是开启的，可以关闭。  
 
