@@ -122,4 +122,4 @@ Mail：h.vi@qq.com
 
 ## Stargazers over time
 
-[![Stargazers over time](https://starchart.cc/0x727/ObserverWard.svg)](https://github.com/0671/RabR)
+[![Stargazers over time](https://starchart.cc/0671/RabR.svg)](https://github.com/0671/RabR)
